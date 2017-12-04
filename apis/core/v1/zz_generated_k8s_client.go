@@ -17,6 +17,7 @@ type Interface interface {
 	PodsGetter
 	NodesGetter
 	ComponentStatusesGetter
+	SecretsGetter
 }
 
 type Client struct {
@@ -27,6 +28,7 @@ type Client struct {
 	podControllers             map[string]PodController
 	nodeControllers            map[string]NodeController
 	componentStatusControllers map[string]ComponentStatusController
+	secretControllers          map[string]SecretController
 }
 
 func NewForConfig(config rest.Config) (Interface, error) {
@@ -46,6 +48,7 @@ func NewForConfig(config rest.Config) (Interface, error) {
 		podControllers:             map[string]PodController{},
 		nodeControllers:            map[string]NodeController{},
 		componentStatusControllers: map[string]ComponentStatusController{},
+		secretControllers:          map[string]SecretController{},
 	}, nil
 }
 
@@ -94,6 +97,19 @@ type ComponentStatusesGetter interface {
 func (c *Client) ComponentStatuses(namespace string) ComponentStatusInterface {
 	objectClient := clientbase.NewObjectClient(namespace, c.restClient, &ComponentStatusResource, ComponentStatusGroupVersionKind, componentStatusFactory{})
 	return &componentStatusClient{
+		ns:           namespace,
+		client:       c,
+		objectClient: objectClient,
+	}
+}
+
+type SecretsGetter interface {
+	Secrets(namespace string) SecretInterface
+}
+
+func (c *Client) Secrets(namespace string) SecretInterface {
+	objectClient := clientbase.NewObjectClient(namespace, c.restClient, &SecretResource, SecretGroupVersionKind, secretFactory{})
+	return &secretClient{
 		ns:           namespace,
 		client:       c,
 		objectClient: objectClient,

@@ -378,6 +378,8 @@ func (s *Schemas) determineSchemaType(version *APIVersion, t reflect.Type) (stri
 	switch t.Kind() {
 	case reflect.Bool:
 		return "boolean", nil
+	case reflect.Uint8:
+		return "uint8", nil
 	case reflect.Int:
 		fallthrough
 	case reflect.Int32:
