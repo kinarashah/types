@@ -109,5 +109,5 @@ type Workload struct {
 }
 
 type DeploymentRollbackInput struct {
-	Revision string `json:"revision, norman:"type=reference[/v3/schemas/replicaSet]""`
+	Revision string `json:"revision", norman:"type=reference[/v3/schemas/replicaSet],nocreate,noupdate"`
 }

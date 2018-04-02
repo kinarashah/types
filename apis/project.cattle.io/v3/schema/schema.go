@@ -367,6 +367,7 @@ func cronJobTypes(schemas *types.Schemas) *types.Schemas {
 
 func deploymentTypes(schemas *types.Schemas) *types.Schemas {
 	return schemas.
+		MustImport(&Version, v3.DeploymentRollbackInput{}).
 		AddMapperForType(&Version, v1beta2.DeploymentStrategy{},
 			&m.Embed{Field: "rollingUpdate"},
 			m.Enum{Field: "type", Options: []string{
