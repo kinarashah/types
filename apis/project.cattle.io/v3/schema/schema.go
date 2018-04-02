@@ -386,7 +386,6 @@ func deploymentTypes(schemas *types.Schemas) *types.Schemas {
 					"minReadySeconds",
 					"strategy",
 					"revisionHistoryLimit",
-					"paused",
 					"progressDeadlineSeconds",
 					"maxUnavailable",
 					"maxSurge",
@@ -405,6 +404,12 @@ func deploymentTypes(schemas *types.Schemas) *types.Schemas {
 		MustImport(&Version, v1beta2.DeploymentSpec{}, deploymentConfigOverride{}).
 		MustImportAndCustomize(&Version, v1beta2.Deployment{}, func(schema *types.Schema) {
 			schema.BaseType = "workload"
+			schema.ResourceActions = map[string]types.Action{
+				"rollback": {
+					Input: "revision",
+				},
+				"pause": {},
+			}
 		}, projectOverride{}, struct {
 			PublicEndpoints string `json:"publicEndpoints" norman:"type=array[publicEndpoint],nocreate,noupdate"`
 		}{})
