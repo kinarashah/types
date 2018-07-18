@@ -11,6 +11,7 @@ const (
 	ClusterFieldAllocatable                          = "allocatable"
 	ClusterFieldAmazonElasticContainerServiceConfig  = "amazonElasticContainerServiceConfig"
 	ClusterFieldAnnotations                          = "annotations"
+	ClusterFieldAppliedEnableNetworkPolicy           = "appliedEnableNetworkPolicy"
 	ClusterFieldAppliedPodSecurityPolicyTemplateName = "appliedPodSecurityPolicyTemplateId"
 	ClusterFieldAppliedSpec                          = "appliedSpec"
 	ClusterFieldAzureKubernetesServiceConfig         = "azureKubernetesServiceConfig"
@@ -25,6 +26,7 @@ const (
 	ClusterFieldDescription                          = "description"
 	ClusterFieldDesiredAgentImage                    = "desiredAgentImage"
 	ClusterFieldDriver                               = "driver"
+	ClusterFieldEnableNetworkPolicy                  = "enableNetworkPolicy"
 	ClusterFieldFailedSpec                           = "failedSpec"
 	ClusterFieldGoogleKubernetesEngineConfig         = "googleKubernetesEngineConfig"
 	ClusterFieldImportedConfig                       = "importedConfig"
@@ -50,6 +52,7 @@ type Cluster struct {
 	Allocatable                          map[string]string                    `json:"allocatable,omitempty" yaml:"allocatable,omitempty"`
 	AmazonElasticContainerServiceConfig  *AmazonElasticContainerServiceConfig `json:"amazonElasticContainerServiceConfig,omitempty" yaml:"amazonElasticContainerServiceConfig,omitempty"`
 	Annotations                          map[string]string                    `json:"annotations,omitempty" yaml:"annotations,omitempty"`
+	AppliedEnableNetworkPolicy           bool                                 `json:"appliedEnableNetworkPolicy,omitempty" yaml:"appliedEnableNetworkPolicy,omitempty"`
 	AppliedPodSecurityPolicyTemplateName string                               `json:"appliedPodSecurityPolicyTemplateId,omitempty" yaml:"appliedPodSecurityPolicyTemplateId,omitempty"`
 	AppliedSpec                          *ClusterSpec                         `json:"appliedSpec,omitempty" yaml:"appliedSpec,omitempty"`
 	AzureKubernetesServiceConfig         *AzureKubernetesServiceConfig        `json:"azureKubernetesServiceConfig,omitempty" yaml:"azureKubernetesServiceConfig,omitempty"`
@@ -64,6 +67,7 @@ type Cluster struct {
 	Description                          string                               `json:"description,omitempty" yaml:"description,omitempty"`
 	DesiredAgentImage                    string                               `json:"desiredAgentImage,omitempty" yaml:"desiredAgentImage,omitempty"`
 	Driver                               string                               `json:"driver,omitempty" yaml:"driver,omitempty"`
+	EnableNetworkPolicy                  bool                                 `json:"enableNetworkPolicy,omitempty" yaml:"enableNetworkPolicy,omitempty"`
 	FailedSpec                           *ClusterSpec                         `json:"failedSpec,omitempty" yaml:"failedSpec,omitempty"`
 	GoogleKubernetesEngineConfig         *GoogleKubernetesEngineConfig        `json:"googleKubernetesEngineConfig,omitempty" yaml:"googleKubernetesEngineConfig,omitempty"`
 	ImportedConfig                       *ImportedConfig                      `json:"importedConfig,omitempty" yaml:"importedConfig,omitempty"`
