@@ -69,6 +69,7 @@ type ClusterSpec struct {
 	AmazonElasticContainerServiceConfig  *AmazonElasticContainerServiceConfig `json:"amazonElasticContainerServiceConfig,omitempty"`
 	DefaultPodSecurityPolicyTemplateName string                               `json:"defaultPodSecurityPolicyTemplateName,omitempty" norman:"type=reference[podSecurityPolicyTemplate]"`
 	DefaultClusterRoleForProjectMembers  string                               `json:"defaultClusterRoleForProjectMembers,omitempty" norman:"type=reference[roleTemplate]"`
+	EnableNetworkPolicy                  bool                                 `json:"enableNetworkPolicy", norman:"nocreate,noupdate,default=true"`
 }
 
 type ImportedConfig struct {
@@ -95,6 +96,7 @@ type ClusterStatus struct {
 	Limits                               v1.ResourceList          `json:"limits,omitempty"`
 	Version                              *version.Info            `json:"version,omitempty"`
 	AppliedPodSecurityPolicyTemplateName string                   `json:"appliedPodSecurityPolicyTemplateId"`
+	AppliedEnableNetworkPolicy           bool                     `json:"appliedEnableNetworkPolicy", norman:"nocreate,noupdate,default=true"`
 }
 
 type ClusterComponentStatus struct {
