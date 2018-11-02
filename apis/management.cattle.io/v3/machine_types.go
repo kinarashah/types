@@ -290,3 +290,12 @@ type NodeDrainInput struct {
 	// Time to wait (in seconds) before giving up for one try
 	Timeout int `json:"timeout" norman:"min=1,max=10800,default=60"`
 }
+
+type CloudCredential struct {
+	types.Namespaced
+
+	metav1.TypeMeta `json:",inline"`
+	// Standard object’s metadata. More info:
+	// https://github.com/kubernetes/community/blob/master/contributors/devel/api-conventions.md#metadata
+	metav1.ObjectMeta `json:"metadata,omitempty"`
+}

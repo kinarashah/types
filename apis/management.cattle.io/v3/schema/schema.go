@@ -36,7 +36,8 @@ var (
 		Init(alertTypes).
 		Init(composeType).
 		Init(projectCatalogTypes).
-		Init(clusterCatalogTypes)
+		Init(clusterCatalogTypes).
+		Init(cloudCredentialTypes)
 
 	TokenSchemas = factory.Schemas(&Version).
 			Init(tokens)
@@ -44,6 +45,62 @@ var (
 
 func rkeTypes(schemas *types.Schemas) *types.Schemas {
 	return schemas.AddMapperForType(&Version, v3.BaseService{}, m.Drop{Field: "image"})
+}
+
+func cloudCredentialTypes(schemas *types.Schemas) *types.Schemas {
+	return schemas.
+		AddMapperForType(&Version, v1.Secret{},
+			m.SetValue{
+				Field: "type",
+				IfEq:  "kubernetes.io/basic-auth",
+				Value: "cloudCredential",
+			},
+			&m.Move{From: "type", To: "kind"},
+			m.Condition{
+				Field: "kind",
+				Value: "cloudCredential",
+				Mapper: types.Mappers{
+					m.UntypedMove{
+						From: "data/username",
+						To:   "username",
+					},
+					m.UntypedMove{
+						From: "data/password",
+						To:   "password",
+					},
+					m.Base64{
+						Field:            "username",
+						IgnoreDefinition: true,
+					},
+					m.Base64{
+						Field:            "password",
+						IgnoreDefinition: true,
+					},
+					m.SetValue{
+						Field:            "type",
+						Value:            "cloudCredential",
+						IgnoreDefinition: true,
+					},
+				},
+			},
+			m.AnnotationField{Field: "testId", IgnoreDefinition: true}).
+		AddMapperForType(&Version, v3.CloudCredential{}, CloudCredentialMapper{}).
+		MustImportAndCustomize(&Version, v1.Secret{}, func(schema *types.Schema) {
+			schema.MustCustomizeField("kind", func(f types.Field) types.Field {
+				f.Options = []string{
+					"cloudCredential",
+				}
+				return f
+			})
+			schema.ID = "managementSecret"
+			schema.PluralName = "managementSecrets"
+			schema.CodeName = "ManagementSecret"
+			schema.CodeNamePlural = "ManagementSecrets"
+		}).
+		MustImportAndCustomize(&Version, v3.CloudCredential{}, func(schema *types.Schema) {
+			schema.BaseType = "managementSecret"
+			schema.Mapper = schemas.Schema(&Version, "secret").Mapper
+		})
 }
 
 func schemaTypes(schemas *types.Schemas) *types.Schemas {
