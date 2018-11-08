@@ -36,7 +36,8 @@ var (
 		Init(alertTypes).
 		Init(composeType).
 		Init(projectCatalogTypes).
-		Init(clusterCatalogTypes)
+		Init(clusterCatalogTypes).
+		Init(secretTypes)
 
 	TokenSchemas = factory.Schemas(&Version).
 			Init(tokens)
@@ -44,6 +45,13 @@ var (
 
 func rkeTypes(schemas *types.Schemas) *types.Schemas {
 	return schemas.AddMapperForType(&Version, v3.BaseService{}, m.Drop{Field: "image"})
+}
+
+func secretTypes(schemas *types.Schemas) *types.Schemas {
+	return schemas.MustImportAndCustomize(&Version, v1.Secret{}, func(schema *types.Schema) {
+		schema.CodeName = "ManagementSecret"
+		schema.CodeNamePlural = "ManagementSecrets"
+	})
 }
 
 func schemaTypes(schemas *types.Schemas) *types.Schemas {
