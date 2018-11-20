@@ -65,7 +65,7 @@ func mgmtSecretTypes(schemas *types.Schemas) *types.Schemas {
 		schema.ResourceMethods = append(schema.ResourceMethods, http.MethodPost)
 	}, struct {
 		NamespaceId string `json:"namespaceId,omitempty"`
-	}{})
+	}{}).AddMapperForType(&Version, v1.Secret{}, &mapper.NamespaceReference{})
 }
 
 func catalogTypes(schemas *types.Schemas) *types.Schemas {
