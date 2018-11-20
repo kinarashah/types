@@ -36,7 +36,8 @@ var (
 		Init(alertTypes).
 		Init(composeType).
 		Init(projectCatalogTypes).
-		Init(clusterCatalogTypes)
+		Init(clusterCatalogTypes).
+		Init(testTypes)
 
 	TokenSchemas = factory.Schemas(&Version).
 			Init(tokens)
@@ -49,6 +50,11 @@ func rkeTypes(schemas *types.Schemas) *types.Schemas {
 func schemaTypes(schemas *types.Schemas) *types.Schemas {
 	return schemas.
 		MustImport(&Version, v3.DynamicSchema{})
+}
+
+func testTypes(schemas *types.Schemas) *types.Schemas {
+	return schemas.
+		MustImport(&Version, v3.CloudCredential{})
 }
 
 func catalogTypes(schemas *types.Schemas) *types.Schemas {
