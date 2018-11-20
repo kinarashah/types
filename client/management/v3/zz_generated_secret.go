@@ -12,6 +12,7 @@ const (
 	ManagementSecretFieldData            = "data"
 	ManagementSecretFieldLabels          = "labels"
 	ManagementSecretFieldName            = "name"
+	ManagementSecretFieldNamespaceId     = "namespaceId"
 	ManagementSecretFieldOwnerReferences = "ownerReferences"
 	ManagementSecretFieldRemoved         = "removed"
 	ManagementSecretFieldStringData      = "stringData"
@@ -27,6 +28,7 @@ type ManagementSecret struct {
 	Data            map[string]string `json:"data,omitempty" yaml:"data,omitempty"`
 	Labels          map[string]string `json:"labels,omitempty" yaml:"labels,omitempty"`
 	Name            string            `json:"name,omitempty" yaml:"name,omitempty"`
+	NamespaceId     string            `json:"namespaceId,omitempty" yaml:"namespaceId,omitempty"`
 	OwnerReferences []OwnerReference  `json:"ownerReferences,omitempty" yaml:"ownerReferences,omitempty"`
 	Removed         string            `json:"removed,omitempty" yaml:"removed,omitempty"`
 	StringData      map[string]string `json:"stringData,omitempty" yaml:"stringData,omitempty"`
