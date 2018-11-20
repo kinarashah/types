@@ -37,7 +37,8 @@ var (
 		Init(composeType).
 		Init(projectCatalogTypes).
 		Init(clusterCatalogTypes).
-		Init(testTypes)
+		Init(credTypes).
+		Init(mgmtSecretTypes)
 
 	TokenSchemas = factory.Schemas(&Version).
 			Init(tokens)
@@ -52,9 +53,16 @@ func schemaTypes(schemas *types.Schemas) *types.Schemas {
 		MustImport(&Version, v3.DynamicSchema{})
 }
 
-func testTypes(schemas *types.Schemas) *types.Schemas {
+func credTypes(schemas *types.Schemas) *types.Schemas {
 	return schemas.
 		MustImport(&Version, v3.CloudCredential{})
+}
+
+func mgmtSecretTypes(schemas *types.Schemas) *types.Schemas {
+	return schemas.MustImportAndCustomize(&Version, v1.Secret{}, func(schema *types.Schema) {
+		schema.CodeName = "ManagementSecret"
+		schema.CodeNamePlural = "ManagementSecrets"
+	})
 }
 
 func catalogTypes(schemas *types.Schemas) *types.Schemas {
