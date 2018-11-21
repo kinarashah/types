@@ -65,7 +65,7 @@ func mgmtSecretTypes(schemas *types.Schemas) *types.Schemas {
 		schema.ResourceMethods = append(schema.ResourceMethods, http.MethodPost)
 	}, struct {
 		NamespaceId string `json:"namespaceId,omitempty"`
-	}{}).AddMapperForType(&Version, v1.Secret{}, &mapper.NamespaceReference{})
+	}{}).AddMapperForType(&Version, v1.Secret{}, &mapper.TestMapper{})
 }
 
 func catalogTypes(schemas *types.Schemas) *types.Schemas {
@@ -275,7 +275,7 @@ func nodeTypes(schemas *types.Schemas) *types.Schemas {
 				Input: "nodeDrainInput",
 			}
 		}, struct {
-			PublicEndpoints string `json:"publicEndpoints" norman:"type=array[publicEndpoint],nocreate,noupdate"`
+			PublicEndpoints string `json:"publicEndpoints" norman:"type=array[publicEndpoint],nocreate,noupdate"norman:"type=array[publicEndpoint],nocreate,noupdate"`
 		}{}).
 		MustImportAndCustomize(&Version, v3.NodeDriver{}, func(schema *types.Schema) {
 			schema.ResourceActions["activate"] = types.Action{
