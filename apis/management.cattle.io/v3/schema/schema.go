@@ -55,7 +55,8 @@ func schemaTypes(schemas *types.Schemas) *types.Schemas {
 
 func credTypes(schemas *types.Schemas) *types.Schemas {
 	return schemas.
-		MustImport(&Version, v3.CloudCredential{})
+		MustImport(&Version, v3.CloudCredential{}).
+		AddMapperForType(&Version, v3.CloudCredential{}, &mapper.TestMapper{})
 }
 
 func mgmtSecretTypes(schemas *types.Schemas) *types.Schemas {
@@ -65,7 +66,7 @@ func mgmtSecretTypes(schemas *types.Schemas) *types.Schemas {
 		schema.ResourceMethods = append(schema.ResourceMethods, http.MethodPost)
 	}, struct {
 		NamespaceId string `json:"namespaceId,omitempty"`
-	}{}).AddMapperForType(&Version, v1.Secret{}, &mapper.TestMapper{})
+	}{})
 }
 
 func catalogTypes(schemas *types.Schemas) *types.Schemas {
