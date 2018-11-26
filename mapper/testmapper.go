@@ -2,6 +2,7 @@ package mapper
 
 import (
 	"encoding/json"
+	"fmt"
 	"github.com/rancher/norman/types"
 	"github.com/rancher/norman/types/convert"
 	"github.com/rancher/norman/types/values"
@@ -20,6 +21,8 @@ func (s TestMapper) FromInternal(data map[string]interface{}) {
 		delete(data, "data")
 		values.PutValue(data, convert.ToString(test), "digitaloceancredentialConfig", "accessToken")
 
+		values.PutValue(data, fmt.Sprintf("%s:%s", convert.ToString(values.GetValueN(data, "id")), convert.ToString(values.GetValueN(data, "namespaceId"))), "id")
+		
 		ans, _ = json.Marshal(data)
 		logrus.Infof("now from here %v", string(ans))
 	}
