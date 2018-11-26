@@ -63,10 +63,11 @@ func mgmtSecretTypes(schemas *types.Schemas) *types.Schemas {
 	return schemas.MustImportAndCustomize(&Version, v1.Secret{}, func(schema *types.Schema) {
 		schema.CodeName = "ManagementSecret"
 		schema.CodeNamePlural = "ManagementSecrets"
-		schema.ResourceMethods = append(schema.ResourceMethods, http.MethodPost)
-	}, struct {
-		NamespaceId string `json:"namespaceId,omitempty"`
-	}{})
+		//schema.ResourceMethods = append(schema.ResourceMethods, http.MethodPost)
+	})
+	//, struct {
+	//	NamespaceId string `json:"namespaceId,omitempty"`
+	//}{})
 }
 
 func catalogTypes(schemas *types.Schemas) *types.Schemas {
