@@ -56,8 +56,10 @@ func updateData(data map[string]interface{}) {
 }
 
 func getKeys(data map[string]interface{}) (string, string, string) {
+	logrus.Infof("data %v", data)
 	for key, val := range data {
 		splitKeys := strings.Split(key, "-")
+		logrus.Infof("keys %v", splitKeys)
 		if len(splitKeys) != 2 {
 			continue
 		}
