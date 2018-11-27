@@ -1,7 +1,11 @@
 package mapper
 
 import (
+	"encoding/json"
 	"github.com/rancher/norman/types"
+	"github.com/rancher/norman/types/convert"
+	"github.com/rancher/norman/types/values"
+	"github.com/sirupsen/logrus"
 )
 
 type TestMapper struct {
@@ -22,17 +26,17 @@ func (s TestMapper) FromInternal(data map[string]interface{}) {
 }
 
 func (s TestMapper) ToInternal(data map[string]interface{}) error {
-	//ans, _ := json.Marshal(data)
-	//logrus.Infof("entered here %v", string(ans))
-	//
-	//stringData := map[string]string{}
-	//stringData["digitaloceancredentialConfig"] = convert.ToString(values.GetValueN(data, "digitaloceancredentialConfig", "accessToken"))
-	//
-	//values.PutValue(data, stringData, "stringData")
-	//delete(data, "digitaloceancredentialConfig")
-	//
-	//ans, _ = json.Marshal(data)
-	//logrus.Infof("now here %v", string(ans))
+	ans, _ := json.Marshal(data)
+	logrus.Infof("entered here %v", string(ans))
+
+	stringData := map[string]string{}
+	stringData["digitaloceancredentialConfig"] = convert.ToString(values.GetValueN(data, "digitaloceancredentialConfig", "accessToken"))
+
+	values.PutValue(data, stringData, "stringData")
+	delete(data, "digitaloceancredentialConfig")
+
+	ans, _ = json.Marshal(data)
+	logrus.Infof("now here %v", string(ans))
 	return  nil
 }
 
