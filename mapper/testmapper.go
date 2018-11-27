@@ -12,17 +12,17 @@ type TestMapper struct {
 }
 
 func (s TestMapper) FromInternal(data map[string]interface{}) {
-	//test := convert.ToString(values.GetValueN(data, "data", "digitaloceancredentialConfig"))
-	//if test != "" {
-	//	ans, _ := json.Marshal(data)
-	//	logrus.Infof("entered here %v", string(ans))
-	//
-	//	delete(data, "data")
-	//	values.PutValue(data, convert.ToString(test), "digitaloceancredentialConfig", "accessToken")
-	//
-	//	ans, _ = json.Marshal(data)
-	//	logrus.Infof("now from here %v", string(ans))
-	//}
+	test := convert.ToString(values.GetValueN(data, "data", "digitaloceancredentialConfig"))
+	if test != "" {
+		ans, _ := json.Marshal(data)
+		logrus.Infof("entered here %v", string(ans))
+
+		delete(data, "data")
+		values.PutValue(data, convert.ToString(test), "digitaloceancredentialConfig", "accessToken")
+
+		ans, _ = json.Marshal(data)
+		logrus.Infof("now from here %v", string(ans))
+	}
 }
 
 func (s TestMapper) ToInternal(data map[string]interface{}) error {
