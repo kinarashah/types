@@ -46,7 +46,7 @@ func updateData(data map[string]interface{}) {
 	for key, val := range data {
 		if strings.HasSuffix(key, "Config") {
 			for key2, val := range convert.ToMapInterface(val) {
-				stringData[fmt.Sprintf("%s:%s",key,key2)] = convert.ToString(val)
+				stringData[fmt.Sprintf("%s-%s",key,key2)] = convert.ToString(val)
 				values.PutValue(data, stringData, "stringData")
 				delete(data, key)
 				return
@@ -57,7 +57,7 @@ func updateData(data map[string]interface{}) {
 
 func getKeys(data map[string]interface{}) (string, string, string) {
 	for key, val := range data {
-		splitKeys := strings.Split(key, ":")
+		splitKeys := strings.Split(key, "-")
 		if len(splitKeys) != 2 {
 			continue
 		}
