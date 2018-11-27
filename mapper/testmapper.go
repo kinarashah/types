@@ -14,7 +14,7 @@ type TestMapper struct {
 }
 
 func (s TestMapper) FromInternal(data map[string]interface{}) {
-	config, field, value := getKeys(data)
+	config, field, value := getKeys(convert.ToMapInterface(data["stringData"]))
 	logrus.Infof("config %s field %s value %s", config, field, value)
 
 	if config != "" {
