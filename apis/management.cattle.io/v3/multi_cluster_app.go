@@ -1,8 +1,15 @@
 package v3
 
 import (
+	"github.com/rancher/norman/condition"
 	"github.com/rancher/norman/types"
+	"github.com/rancher/types/apis/project.cattle.io/v3"
 	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
+)
+
+var (
+	MultiClusterAppConditionInstalled condition.Cond = "Installed"
+	MultiClusterAppConditionDeployed  condition.Cond = "Deployed"
 )
 
 type MultiClusterApp struct {
@@ -25,7 +32,7 @@ type MultiClusterAppSpec struct {
 }
 
 type MultiClusterAppStatus struct {
-	Healthstate string `json:"healthState,omitempty"`
+	Conditions []v3.AppCondition `json:"conditions,omitempty"`
 }
 
 type Target struct {
@@ -38,4 +45,24 @@ type Answer struct {
 	ProjectName string            `json:"projectName,omitempty" norman:"type=reference[project]"`
 	ClusterName string            `json:"clusterName,omitempty" norman:"type=reference[cluster]"`
 	Values      map[string]string `json:"values,omitempty" norman:"required"`
+}
+
+type MultiClusterAppRevision struct {
+	types.Namespaced
+	metav1.TypeMeta   `json:",inline"`
+	metav1.ObjectMeta `json:"metadata,omitempty"`
+
+	TemplateVersionName string            `json:"templateVersionName,omitempty" norman:"type=reference[templateVersion],required"`
+	Answers             map[string]string `json:"answers,omitempty"`
+}
+
+type MultiClusterAppUpgradeInput struct {
+	TemplateVersionName string            `json:"templateVersionName,omitempty"`
+	Answers             map[string]string `json:"answers,omitempty"`
+	BatchSize           int               `json:"batchSize,omitempty"`
+}
+
+type MultiClusterAppRollbackInput struct {
+	RevisionName string `json:"revisionName,omitempty" norman:"type=reference[/v3/schemas/multiClusterAppRevision]"`
+	BatchSize           int               `json:"batchSize,omitempty"`
 }
