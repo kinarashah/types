@@ -59,6 +59,10 @@ type MultiClusterAppOperations interface {
 	Replace(existing *MultiClusterApp) (*MultiClusterApp, error)
 	ByID(id string) (*MultiClusterApp, error)
 	Delete(container *MultiClusterApp) error
+
+	ActionRollback(resource *MultiClusterApp, input *MultiClusterAppRollbackInput) error
+
+	ActionUpgrade(resource *MultiClusterApp, input *MultiClusterAppUpgradeInput) error
 }
 
 func newMultiClusterAppClient(apiClient *Client) *MultiClusterAppClient {
@@ -110,4 +114,14 @@ func (c *MultiClusterAppClient) ByID(id string) (*MultiClusterApp, error) {
 
 func (c *MultiClusterAppClient) Delete(container *MultiClusterApp) error {
 	return c.apiClient.Ops.DoResourceDelete(MultiClusterAppType, &container.Resource)
+}
+
+func (c *MultiClusterAppClient) ActionRollback(resource *MultiClusterApp, input *MultiClusterAppRollbackInput) error {
+	err := c.apiClient.Ops.DoAction(MultiClusterAppType, "rollback", &resource.Resource, input, nil)
+	return err
+}
+
+func (c *MultiClusterAppClient) ActionUpgrade(resource *MultiClusterApp, input *MultiClusterAppUpgradeInput) error {
+	err := c.apiClient.Ops.DoAction(MultiClusterAppType, "upgrade", &resource.Resource, input, nil)
+	return err
 }
