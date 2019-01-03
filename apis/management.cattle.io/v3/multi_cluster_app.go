@@ -64,5 +64,5 @@ type MultiClusterAppUpgradeInput struct {
 
 type MultiClusterAppRollbackInput struct {
 	RevisionName string `json:"revisionName,omitempty" norman:"type=reference[/v3/schemas/multiClusterAppRevision]"`
-	BatchSize           int               `json:"batchSize,omitempty"`
+	BatchSize    int    `json:"batchSize,omitempty"`
 }

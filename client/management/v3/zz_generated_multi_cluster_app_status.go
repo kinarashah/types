@@ -1,10 +1,10 @@
 package client
 
 const (
-	MultiClusterAppStatusType             = "multiClusterAppStatus"
-	MultiClusterAppStatusFieldHealthstate = "healthState"
+	MultiClusterAppStatusType            = "multiClusterAppStatus"
+	MultiClusterAppStatusFieldConditions = "conditions"
 )
 
 type MultiClusterAppStatus struct {
-	Healthstate string `json:"healthState,omitempty" yaml:"healthState,omitempty"`
+	Conditions []AppCondition `json:"conditions,omitempty" yaml:"conditions,omitempty"`
 }
