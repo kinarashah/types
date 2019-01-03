@@ -614,7 +614,20 @@ func multiClusterAppTypes(schemas *types.Schemas) *types.Schemas {
 	return schemas.
 		AddMapperForType(&Version, v3.MultiClusterApp{}, m.Drop{Field: "namespaceId"}).
 		MustImport(&Version, v3.MultiClusterApp{}).
-		MustImport(&Version, v3.Target{})
+		MustImport(&Version, v3.Target{}).
+		MustImport(&Version, v3.MultiClusterAppUpgradeInput{}).
+		MustImport(&Version, v3.MultiClusterAppRollbackInput{}).
+		MustImportAndCustomize(&Version, v3.MultiClusterApp{}, func(schema *types.Schema) {
+			schema.ResourceActions = map[string]types.Action{
+				"upgrade": {
+					Input: "multiClusterAppUpgradeInput",
+				},
+				"rollback": {
+					Input: "multiClusterAppRollbackInput",
+				},
+			}
+		}).
+		MustImport(&Version, v3.MultiClusterAppRevision{})
 }
 
 func globalDNSTypes(schemas *types.Schemas) *types.Schemas {
