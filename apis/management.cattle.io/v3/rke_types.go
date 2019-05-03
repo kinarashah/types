@@ -136,6 +136,10 @@ type RKESystemImages struct {
 	IngressBackend string `yaml:"ingress_backend" json:"ingressBackend,omitempty"`
 	// Metrics Server image
 	MetricsServer string `yaml:"metrics_server" json:"metricsServer,omitempty"`
+	// Minimum Rancher version
+	MinRancherVersion string `yaml:"min_version" json:"minVersion,omitempty"`
+	// Maximum Rancher version
+	MaxRancherVersion string `yaml:"max_version" json:"maxVersion,omitempty"`
 }
 
 type RKEConfigNode struct {
