@@ -412,6 +412,15 @@ type WeaveNetworkProvider struct {
 	Password string `yaml:"password,omitempty" json:"password,omitempty" norman:"type=password"`
 }
 
+type KubernetesVersion struct {
+	// Kubernetes version
+	Version string `json:"version"`
+	// Minimum Rancher version
+	MinRancherVersion string `json:"minRancherVersion"`
+	// Maximum Rancher version
+	MaxRancherVersion string `json:"maxRancherVersion"`
+}
+
 type KubernetesServicesOptions struct {
 	// Additional options passed to KubeAPI
 	KubeAPI map[string]string `json:"kubeapi"`
