@@ -1,5 +1,10 @@
 package v3
 
+import (
+	"github.com/rancher/norman/types"
+	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
+)
+
 type RancherKubernetesEngineConfig struct {
 	// Kubernetes nodes
 	Nodes []RKEConfigNode `yaml:"nodes" json:"nodes,omitempty"`
@@ -168,6 +173,42 @@ type RKEConfigNode struct {
 	// Node Labels
 	Labels map[string]string `yaml:"labels" json:"labels,omitempty"`
 }
+
+type RKEK8sSystemImage struct {
+	types.Namespaced
+	metav1.TypeMeta   `json:",inline"`
+	metav1.ObjectMeta `json:"metadata,omitempty"`
+
+	SystemImages RKESystemImages `yaml:"system_images" json:"systemImages,omitempty"`
+}
+
+type RKEK8sServiceOption struct {
+	types.Namespaced
+	metav1.TypeMeta   `json:",inline"`
+	metav1.ObjectMeta `json:"metadata,omitempty"`
+
+	ServiceOptions KubernetesServicesOptions `yaml:"service_options" json:"serviceOptions,omitempty"`
+}
+
+type RKEAddon struct {
+	types.Namespaced
+	metav1.TypeMeta   `json:",inline"`
+	metav1.ObjectMeta `json:"metadata,omitempty"`
+
+	Template string `yaml:"template" json:"template,omitempty"`
+}
+
+
+type RKEVersion struct {
+	MinVersion string `json:"minVersion"`
+	MaxVersion string `json:"maxVersion"`
+}
+
+type RancherVersion struct {
+	MinVersion string `json:"minVersion"`
+	MaxVersion string `json:"maxVersion"`
+}
+
 
 type RKEConfigServices struct {
 	// Etcd Service
