@@ -198,7 +198,6 @@ type RKEAddon struct {
 	Template string `yaml:"template" json:"template,omitempty"`
 }
 
-
 type RKEVersion struct {
 	MinVersion string `json:"minVersion"`
 	MaxVersion string `json:"maxVersion"`
@@ -208,7 +207,6 @@ type RancherVersion struct {
 	MinVersion string `json:"minVersion"`
 	MaxVersion string `json:"maxVersion"`
 }
-
 
 type RKEConfigServices struct {
 	// Etcd Service
