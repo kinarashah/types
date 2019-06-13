@@ -138,17 +138,6 @@ type RKESystemImages struct {
 	MetricsServer string `yaml:"metrics_server" json:"metricsServer,omitempty"`
 }
 
-type RKEVersions struct {
-	MinRKEVersion string `json:"minRKEVersion"`
-	MaxRKEVersion string `json:"maxRKEVersion"`
-}
-
-// RancherVersion to be consistent with RKEVersions
-type RancherVersion struct {
-	MinVersion string `json:"minVersion"`
-	MaxVersion string `json:"maxVersion"`
-}
-
 type RKEConfigNode struct {
 	// Name of the host provisioned via docker machine
 	NodeName string `yaml:"nodeName,omitempty" json:"nodeName,omitempty" norman:"type=reference[node]"`
