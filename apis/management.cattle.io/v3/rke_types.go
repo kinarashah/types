@@ -2,8 +2,9 @@ package v3
 
 import (
 	"github.com/rancher/norman/types"
-	v1 "k8s.io/api/core/v1"
+	"k8s.io/api/core/v1"
 	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
+	"k8s.io/apimachinery/pkg/util/intstr"
 	apiserverv1alpha1 "k8s.io/apiserver/pkg/apis/apiserver/v1alpha1"
 	auditv1 "k8s.io/apiserver/pkg/apis/audit/v1"
 	apiserverconfig "k8s.io/apiserver/pkg/apis/config"
@@ -59,6 +60,16 @@ type RancherKubernetesEngineConfig struct {
 	RotateCertificates *RotateCertificates `yaml:"rotate_certificates,omitempty" json:"rotateCertificates,omitempty"`
 	// DNS Config
 	DNS *DNSConfig `yaml:"dns" json:"dns,omitempty"`
+	// Upgrade Strategy
+	NodeUpgradeStrategy *NodeUpgradeStrategy `yaml:"node_upgrade_strategy,omitempty" json:"nodeUpgradeStrategy,omitempty"`
+}
+
+type NodeUpgradeStrategy struct {
+	RollingUpdate *RollingUpdateStrategy `yaml:"rolling_update_strategy,omitempty" json:"rollingUpdateStrategy,omitempty"`
+}
+
+type RollingUpdateStrategy struct {
+	MaxUnavailable intstr.IntOrString `yaml:"max_unavailable,omitempty" json:"maxUnavailable,omitempty"`
 }
 
 type BastionHost struct {
