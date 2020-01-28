@@ -84,6 +84,7 @@ type Interface interface {
 	RKEAddonsGetter
 	CisConfigsGetter
 	CisBenchmarkVersionsGetter
+	NodeUpgradeStatusesGetter
 }
 
 type Clients struct {
@@ -153,6 +154,7 @@ type Clients struct {
 	RKEAddon                                RKEAddonClient
 	CisConfig                               CisConfigClient
 	CisBenchmarkVersion                     CisBenchmarkVersionClient
+	NodeUpgradeStatus                       NodeUpgradeStatusClient
 }
 
 type Client struct {
@@ -224,6 +226,7 @@ type Client struct {
 	rkeAddonControllers                                map[string]RKEAddonController
 	cisConfigControllers                               map[string]CisConfigController
 	cisBenchmarkVersionControllers                     map[string]CisBenchmarkVersionController
+	nodeUpgradeStatusControllers                       map[string]NodeUpgradeStatusController
 }
 
 func Factory(ctx context.Context, config rest.Config) (context.Context, controller.Starter, error) {
@@ -451,6 +454,9 @@ func NewClientsFromInterface(iface Interface) *Clients {
 		CisBenchmarkVersion: &cisBenchmarkVersionClient2{
 			iface: iface.CisBenchmarkVersions(""),
 		},
+		NodeUpgradeStatus: &nodeUpgradeStatusClient2{
+			iface: iface.NodeUpgradeStatuses(""),
+		},
 	}
 }
 
@@ -531,6 +537,7 @@ func NewForConfig(config rest.Config) (Interface, error) {
 		rkeAddonControllers:                                map[string]RKEAddonController{},
 		cisConfigControllers:                               map[string]CisConfigController{},
 		cisBenchmarkVersionControllers:                     map[string]CisBenchmarkVersionController{},
+		nodeUpgradeStatusControllers:                       map[string]NodeUpgradeStatusController{},
 	}, nil
 }
 
@@ -1372,6 +1379,19 @@ type CisBenchmarkVersionsGetter interface {
 func (c *Client) CisBenchmarkVersions(namespace string) CisBenchmarkVersionInterface {
 	objectClient := objectclient.NewObjectClient(namespace, c.restClient, &CisBenchmarkVersionResource, CisBenchmarkVersionGroupVersionKind, cisBenchmarkVersionFactory{})
 	return &cisBenchmarkVersionClient{
+		ns:           namespace,
+		client:       c,
+		objectClient: objectClient,
+	}
+}
+
+type NodeUpgradeStatusesGetter interface {
+	NodeUpgradeStatuses(namespace string) NodeUpgradeStatusInterface
+}
+
+func (c *Client) NodeUpgradeStatuses(namespace string) NodeUpgradeStatusInterface {
+	objectClient := objectclient.NewObjectClient(namespace, c.restClient, &NodeUpgradeStatusResource, NodeUpgradeStatusGroupVersionKind, nodeUpgradeStatusFactory{})
+	return &nodeUpgradeStatusClient{
 		ns:           namespace,
 		client:       c,
 		objectClient: objectClient,

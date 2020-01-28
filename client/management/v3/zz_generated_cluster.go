@@ -46,7 +46,7 @@ const (
 	ClusterFieldLocalClusterAuthEndpoint             = "localClusterAuthEndpoint"
 	ClusterFieldMonitoringStatus                     = "monitoringStatus"
 	ClusterFieldName                                 = "name"
-	ClusterFieldNodeUpgradeStatus                    = "nodeUpgradeStatus"
+	ClusterFieldNodeUpgradeStatusID                  = "nodeUpgradeStatusId"
 	ClusterFieldOwnerReferences                      = "ownerReferences"
 	ClusterFieldRancherKubernetesEngineConfig        = "rancherKubernetesEngineConfig"
 	ClusterFieldRemoved                              = "removed"
@@ -101,7 +101,7 @@ type Cluster struct {
 	LocalClusterAuthEndpoint             *LocalClusterAuthEndpoint      `json:"localClusterAuthEndpoint,omitempty" yaml:"localClusterAuthEndpoint,omitempty"`
 	MonitoringStatus                     *MonitoringStatus              `json:"monitoringStatus,omitempty" yaml:"monitoringStatus,omitempty"`
 	Name                                 string                         `json:"name,omitempty" yaml:"name,omitempty"`
-	NodeUpgradeStatus                    *NodeUpgradeStatus             `json:"nodeUpgradeStatus,omitempty" yaml:"nodeUpgradeStatus,omitempty"`
+	NodeUpgradeStatusID                  string                         `json:"nodeUpgradeStatusId,omitempty" yaml:"nodeUpgradeStatusId,omitempty"`
 	OwnerReferences                      []OwnerReference               `json:"ownerReferences,omitempty" yaml:"ownerReferences,omitempty"`
 	RancherKubernetesEngineConfig        *RancherKubernetesEngineConfig `json:"rancherKubernetesEngineConfig,omitempty" yaml:"rancherKubernetesEngineConfig,omitempty"`
 	Removed                              string                         `json:"removed,omitempty" yaml:"removed,omitempty"`

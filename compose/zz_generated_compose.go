@@ -70,6 +70,7 @@ type Config struct {
 	RKEAddons                                map[string]managementClient.RKEAddon                                `json:"rkeAddons,omitempty" yaml:"rkeAddons,omitempty"`
 	CisConfigs                               map[string]managementClient.CisConfig                               `json:"cisConfigs,omitempty" yaml:"cisConfigs,omitempty"`
 	CisBenchmarkVersions                     map[string]managementClient.CisBenchmarkVersion                     `json:"cisBenchmarkVersions,omitempty" yaml:"cisBenchmarkVersions,omitempty"`
+	NodeUpgradeStatuss                       map[string]managementClient.NodeUpgradeStatus                       `json:"nodeUpgradeStatuses,omitempty" yaml:"nodeUpgradeStatuses,omitempty"`
 
 	// Cluster Client
 	Namespaces        map[string]clusterClient.Namespace        `json:"namespaces,omitempty" yaml:"namespaces,omitempty"`

@@ -71,6 +71,7 @@ type Client struct {
 	RKEAddon                                RKEAddonOperations
 	CisConfig                               CisConfigOperations
 	CisBenchmarkVersion                     CisBenchmarkVersionOperations
+	NodeUpgradeStatus                       NodeUpgradeStatusOperations
 }
 
 func NewClient(opts *clientbase.ClientOpts) (*Client, error) {
@@ -147,6 +148,7 @@ func NewClient(opts *clientbase.ClientOpts) (*Client, error) {
 	client.RKEAddon = newRKEAddonClient(client)
 	client.CisConfig = newCisConfigClient(client)
 	client.CisBenchmarkVersion = newCisBenchmarkVersionClient(client)
+	client.NodeUpgradeStatus = newNodeUpgradeStatusClient(client)
 
 	return client, nil
 }

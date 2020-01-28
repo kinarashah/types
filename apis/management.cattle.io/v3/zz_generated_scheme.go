@@ -161,6 +161,8 @@ func addKnownTypes(scheme *runtime.Scheme) error {
 		&CisConfigList{},
 		&CisBenchmarkVersion{},
 		&CisBenchmarkVersionList{},
+		&NodeUpgradeStatus{},
+		&NodeUpgradeStatusList{},
 	)
 	metav1.AddToGroupVersion(scheme, SchemeGroupVersion)
 	return nil
