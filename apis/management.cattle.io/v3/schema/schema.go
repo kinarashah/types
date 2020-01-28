@@ -48,11 +48,18 @@ var (
 		Init(clusterTemplateTypes).
 		Init(driverMetadataTypes).
 		Init(driverMetadataCisTypes).
-		Init(encryptionTypes)
+		Init(encryptionTypes).
+		Init(clusterNodeUpgradeStatusTypes)
 
 	TokenSchemas = factory.Schemas(&Version).
 			Init(tokens)
 )
+
+func clusterNodeUpgradeStatusTypes(schemas *types.Schemas) *types.Schemas {
+	return schemas.
+		TypeName("nodeUpgradeStatus", v3.NodeUpgradeStatus{}).
+		MustImport(&Version, v3.NodeUpgradeStatus{})
+}
 
 func rkeTypes(schemas *types.Schemas) *types.Schemas {
 	return schemas.AddMapperForType(&Version, v3.BaseService{}, m.Drop{Field: "image"}).

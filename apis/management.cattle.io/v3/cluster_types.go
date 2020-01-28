@@ -147,10 +147,18 @@ type ClusterStatus struct {
 	MonitoringStatus                     *MonitoringStatus         `json:"monitoringStatus,omitempty" norman:"nocreate,noupdate"`
 	IstioEnabled                         bool                      `json:"istioEnabled,omitempty" norman:"nocreate,noupdate,default=false"`
 	CertificatesExpiration               map[string]CertExpiration `json:"certificatesExpiration,omitempty"`
-	NodeUpgradeStatus                    *NodeUpgradeStatus        `json:"nodeUpgradeStatus,omitempty" norman:"nocreate,noupdate"`
+	NodeUpgradeStatusName                string                    `json:"nodeUpgradeStatusName,omitempty" norman:"type=reference[nodeUpgradeStatus],nocreate,noupdate"`
+	//NodeUpgradeStatus                    *NodeUpgradeStatus        `json:"nodeUpgradeStatus,omitempty" norman:"nocreate,noupdate"`
 }
 
 type NodeUpgradeStatus struct {
+	types.Namespaced
+
+	metav1.TypeMeta `json:",inline"`
+	// Standard object’s metadata. More info:
+	// https://github.com/kubernetes/community/blob/master/contributors/devel/api-conventions.md#metadata
+	metav1.ObjectMeta `json:"metadata,omitempty"`
+
 	LastAppliedToken string `json:"lastAppliedToken"`
 	CurrentToken     string `json:"currentToken"`
 	// map[currentToken]map[nodeName]state
