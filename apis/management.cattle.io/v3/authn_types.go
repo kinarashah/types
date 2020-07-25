@@ -149,7 +149,7 @@ type SamlToken struct {
 	metav1.TypeMeta   `json:",inline"`
 	metav1.ObjectMeta `json:"metadata,omitempty"`
 
-	Token string `json:"token"`
+	Token     string `json:"token" json:"token" norman:"writeOnly,noupdate"`
 	ExpiresAt string `json:"expiresAt"`
 }
 

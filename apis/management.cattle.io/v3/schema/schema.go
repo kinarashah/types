@@ -340,8 +340,7 @@ func authzTypes(schemas *types.Schemas) *types.Schemas {
 		}).
 		MustImport(&Version, v3.ClusterRoleTemplateBinding{}).
 		MustImport(&Version, v3.ProjectRoleTemplateBinding{}).
-		MustImport(&Version, v3.GlobalRoleBinding{}).
-		MustImport(&Version, v3.SamlToken{})
+		MustImport(&Version, v3.GlobalRoleBinding{})
 }
 
 func nodeTypes(schemas *types.Schemas) *types.Schemas {
@@ -435,6 +434,7 @@ func authnTypes(schemas *types.Schemas) *types.Schemas {
 		AddMapperForType(&Version, v3.Group{}, m.DisplayName{}).
 		MustImport(&Version, v3.Group{}).
 		MustImport(&Version, v3.GroupMember{}).
+		MustImport(&Version, v3.SamlToken{}).
 		AddMapperForType(&Version, v3.Principal{}, m.DisplayName{}).
 		MustImportAndCustomize(&Version, v3.Principal{}, func(schema *types.Schema) {
 			schema.CollectionMethods = []string{http.MethodGet}
