@@ -379,10 +379,12 @@ func nodeTypes(schemas *types.Schemas) *types.Schemas {
 				Update:   false,
 			}
 		}).
+		// MustImport(&Version, v3.NodeDrainInput{}).
 		MustImportAndCustomize(&Version, v3.NodeDrainInput{}, func(schema *types.Schema) {
 			dsField := schema.ResourceFields["ignoreDaemonSets"]
-			test := true
+			test := false
 			dsField.Default = &test
+			schema.ResourceFields["ignoreDaemonSets"] = dsField
 		}).
 		MustImportAndCustomize(&Version, v3.Node{}, func(schema *types.Schema) {
 			labelField := schema.ResourceFields["labels"]
