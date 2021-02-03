@@ -2,6 +2,7 @@ package client
 
 const (
 	DNSConfigType                        = "dnsConfig"
+	DNSConfigFieldKeySelector            = "keySelector"
 	DNSConfigFieldLinearAutoscalerParams = "linearAutoscalerParams"
 	DNSConfigFieldNodeSelector           = "nodeSelector"
 	DNSConfigFieldNodelocal              = "nodelocal"
@@ -14,6 +15,7 @@ const (
 )
 
 type DNSConfig struct {
+	KeySelector            map[string]string       `json:"keySelector,omitempty" yaml:"keySelector,omitempty"`
 	LinearAutoscalerParams *LinearAutoscalerParams `json:"linearAutoscalerParams,omitempty" yaml:"linearAutoscalerParams,omitempty"`
 	NodeSelector           map[string]string       `json:"nodeSelector,omitempty" yaml:"nodeSelector,omitempty"`
 	Nodelocal              *Nodelocal              `json:"nodelocal,omitempty" yaml:"nodelocal,omitempty"`
